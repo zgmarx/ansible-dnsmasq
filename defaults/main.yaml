@@ -1,0 +1,31 @@
+---
+# --- conf paths ---
+dnsmasq_path_conf: "/etc/dnsmasq.conf"
+resolv_path_conf: "/etc/resolv.conf"
+dnsmasq_path_dhcp_hosts: ""
+dnsmasq_path_dhcp_opts: ""
+
+# --- dnsmasq.conf dns ---
+dnsmasq_dns_cache: [ "cache-size=20000" ]
+dnsmasq_dns_domains: []
+dnsmasq_dns_filters: []
+dnsmasq_dns_hosts: []
+dnsmasq_dns_interfaces: [ "listen-address=127.0.0.1", "no-dhcp-interface=127.0.0.1", "interface=lo", "bind-interfaces" ]
+dnsmasq_dns_resolv: [ "resolv-file=/etc/dnsmasq.d/resolv.dnsmasq.conf" ]
+dnsmasq_dns_servers: []
+
+# --- dnsmasq.conf dhcp ---
+dnsmasq_dhcp_hosts_opts: []
+dnsmasq_dhcp_lease: []
+dnsmasq_dhcp_ranges: []
+
+# --- dnsmasq.conf misc ---
+dnsmasq_confs: []
+dnsmasq_logs: []
+dnsmasq_run: []
+
+# --- dnsmasq.d/dhcp.hosts ---
+dnsmasq_dhcp_hosts: []
+
+# --- dnsmasq.d/dhcp.opts ---
+dnsmasq_dhcp_options: []

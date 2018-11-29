@@ -1,0 +1,55 @@
+---
+# tasks file for ansible-role-dnsmasq
+
+
+# --- install ---
+- name: "apt | ensure dnsmasq present"
+  apt:
+    name: dnsmasq
+    state: present
+  when: ansible_pkg_mgr == 'apt'
+
+
+- name: "yum | ensure dnsmasq present"
+  yum:
+    pkg: dnsmasq
+    state: present
+  when: ansible_pkg_mgr == 'yum'
+
+
+# --- config ---
+- name: "all | ensure templated dnsmasq.conf"
+  template:
+    src: "dnsmasq.conf.j2"
+    dest: "{{ dnsmasq_path_conf }}"
+    validate: 'dnsmasq --test --conf-file=%s'
+  notify: restart dnsmasq
+
+- name: Set options the first line of resolv.conf
+  lineinfile:
+    create: yes
+    dest: "/etc/resolv.conf"
+    insertbefore: 'BOF'
+    line: 'options timeout:1 attempts:1 rotate'
+    state: present
+
+- name: Set 127.0.0.1 the sencond line of resolv.conf
+  lineinfile:
+    dest: "/etc/resolv.conf"
+    insertafter: 'options timeout:1 attempts:1 rotate'
+    line: 'nameserver 127.0.0.1'
+    state: present
+
+- name: Create /etc/dnsmasq.d/resolv.dnsmasq.conf
+  copy:
+    src: "resolv.dnsmasq.conf"
+    dest: "/etc/dnsmasq.d/resolv.dnsmasq.conf"
+  notify: restart dnsmasq
+
+
+# --- service ---
+- name: "all | ensure dnsmasq service running"
+  service:
+    name: dnsmasq
+    state: started
+    enabled: yes

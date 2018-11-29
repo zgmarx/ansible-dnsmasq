@@ -41,8 +41,8 @@
     state: present
 
 - name: Create /etc/dnsmasq.d/resolv.dnsmasq.conf
-  copy:
-    src: "resolv.dnsmasq.conf"
+  template:
+    src: "resolv.dnsmasq.conf.j2"
     dest: "/etc/dnsmasq.d/resolv.dnsmasq.conf"
   notify: restart dnsmasq
 

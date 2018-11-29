@@ -29,3 +29,12 @@ dnsmasq_dhcp_hosts: []
 
 # --- dnsmasq.d/dhcp.opts ---
 dnsmasq_dhcp_options: []
+
+
+# --- dnsmasq.d/resolv.dnsmasq.conf ---
+dnsmasq_resolv_dnsmasq_conf: [
+"nameserver 119.29.29.29  # tencent dns",
+"nameserver 114.114.114.114  # ali dns",
+"nameserver 8.8.8.8  # google dns",
+"nameserver 8.8.4.4  # google dns"
+]
